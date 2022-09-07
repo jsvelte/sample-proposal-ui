@@ -1,14 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FaListAlt } from 'react-icons/fa'
 import { FaHamburger } from 'react-icons/fa'
 import { HiUserCircle } from 'react-icons/hi'
-import { classNames } from '~/helpers/classNames'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+
+import { classNames } from '~/helpers/classNames'
 
 type Props = {
   links: any[]
+  teams: any[]
   isOpenTeam: boolean
   isOpenDM: boolean
   actions: {
@@ -17,7 +18,7 @@ type Props = {
   }
 }
 
-const Sidebar: React.FC<Props> = ({ links, actions, isOpenTeam, isOpenDM}): JSX.Element => {
+const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM }): JSX.Element => {
   const { toggleTeam, toggleDM } = actions
   const router = useRouter()
   
@@ -62,18 +63,27 @@ const Sidebar: React.FC<Props> = ({ links, actions, isOpenTeam, isOpenDM}): JSX.
             <p className="text-white font-medium">Team</p>
           
           </div>
-        {isOpenTeam && (
-          <div className="text-white px-6 text-sm mb-6">
-              <ul className="space-y-2 text-sm">
-                <li className="inline-flex items-center space-x-3 w-full">
-                  <FaListAlt className="w-4 h-4" /> <span>Project 1</span>
-                </li>
-                <li className="inline-flex items-center space-x-3 w-full">
-                  <FaListAlt className="w-4 h-4" /> <span>Project 2</span>
-                </li>
+          {isOpenTeam && (
+            <div className="text-white text-sm mb-6">
+              <ul className="text-sm">
+                {teams.map(({ id, name, Icon }, i) => (
+                  <li key={i} className="inline-flex items-center space-x-3 w-full ">
+                    <Link href={`/team/${id}`}>
+                      <a className={classNames(
+                        'flex items-center space-x-3 px-6 py-2 w-full',
+                        'transition ease-in duration-150',
+                        router?.query?.id == id
+                        ? 'bg-purple-800' 
+                        : 'hover:bg-purple-800'
+                      )}>
+                        {Icon} <span>{name}</span>
+                      </a>
+                    </Link>
+                  </li>
+                ))}
               </ul>
-          </div>
-        )}
+            </div>
+          )}
         </div>
         <div className="border-t border-gray-300">
           <div 
@@ -88,18 +98,18 @@ const Sidebar: React.FC<Props> = ({ links, actions, isOpenTeam, isOpenDM}): JSX.
             />
             <p className="text-white font-medium">Direct Messages</p>
           </div>
-        {isOpenDM && (
-          <div className="text-white px-6 text-sm mb-6">
-            <ul className="space-y-2 text-sm">
-              <li className="inline-flex items-center space-x-3 w-full">
-                <HiUserCircle className="w-5 h-5" /> <span>AJ</span>
-              </li>
-              <li className="inline-flex items-center space-x-3 w-full">
-                <HiUserCircle className="w-5 h-5" /> <span>Joshua</span>
-              </li>
-            </ul>
-          </div>
-        )}
+          {isOpenDM && (
+            <div className="text-white px-6 text-sm mb-6">
+              <ul className="space-y-2 text-sm">
+                <li className="inline-flex items-center space-x-3 w-full">
+                  <HiUserCircle className="w-5 h-5" /> <span>AJ</span>
+                </li>
+                <li className="inline-flex items-center space-x-3 w-full">
+                  <HiUserCircle className="w-5 h-5" /> <span>Joshua</span>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </nav>
     </div>

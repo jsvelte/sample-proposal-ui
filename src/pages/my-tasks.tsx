@@ -1,5 +1,5 @@
+import React from 'react'
 import { NextPage } from 'next'
-import React, { useState } from 'react'
 
 import Layout from '~/layouts/Layout'
 
