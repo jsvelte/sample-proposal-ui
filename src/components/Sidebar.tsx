@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FaHamburger } from 'react-icons/fa'
-import { HiUserCircle } from 'react-icons/hi'
 import { AiOutlineCaretDown } from 'react-icons/ai'
 
 import { classNames } from '~/helpers/classNames'
@@ -10,6 +9,7 @@ import { classNames } from '~/helpers/classNames'
 type Props = {
   links: any[]
   teams: any[]
+  directMessages: any[]
   isOpenTeam: boolean
   isOpenDM: boolean
   actions: {
@@ -18,9 +18,11 @@ type Props = {
   }
 }
 
-const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM }): JSX.Element => {
+const Sidebar: React.FC<Props> = ({ links, teams, directMessages, actions, isOpenTeam, isOpenDM }): JSX.Element => {
   const { toggleTeam, toggleDM } = actions
   const router = useRouter()
+
+  console.log(router.asPath)
   
   return (
     
@@ -36,7 +38,7 @@ const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM 
               <Link href={href}>
                 <a 
                   className={classNames(
-                    'w-full py-2 px-4 block text-white',
+                    'w-full py-2 px-6 block text-white text-sm',
                     'transition ease-in-out duration-150',
                     'flex items-center space-x-3 font-medium cursor-pointer',
                     router.pathname === href ? 'bg-purple-800' : 'hover:bg-purple-600'
@@ -52,7 +54,7 @@ const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM 
         <div className="mt-5 border-t border-gray-300">
           <div 
             className={classNames(
-              'px-6 py-5 bg-purple-700 flex items-center justify-start',
+              'px-6 py-3 bg-purple-700 flex items-center justify-start',
               'space-x-3 cursor-pointer select-none'
             )}
             onClick={toggleTeam}
@@ -68,11 +70,11 @@ const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM 
               <ul className="text-sm">
                 {teams.map(({ id, name, Icon }, i) => (
                   <li key={i} className="inline-flex items-center space-x-3 w-full ">
-                    <Link href={`/team/${id}`}>
+                    <Link href={`/team/${id}/overview`}>
                       <a className={classNames(
                         'flex items-center space-x-3 px-6 py-2 w-full',
                         'transition ease-in duration-150',
-                        router?.query?.id == id
+                        router.asPath.includes(`/team/${id}`)
                         ? 'bg-purple-800' 
                         : 'hover:bg-purple-800'
                       )}>
@@ -88,7 +90,7 @@ const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM 
         <div className="border-t border-gray-300">
           <div 
             className={classNames(
-              'px-6 py-5 bg-purple-700 flex items-center space-x-3',
+              'px-6 py-3 bg-purple-700 flex items-center space-x-3',
               'cursor-pointer select-none'
             )}
             onClick={toggleDM}
@@ -99,16 +101,23 @@ const Sidebar: React.FC<Props> = ({ links, teams, actions, isOpenTeam, isOpenDM 
             <p className="text-white font-medium">Direct Messages</p>
           </div>
           {isOpenDM && (
-            <div className="text-white px-6 text-sm mb-6">
-              <ul className="space-y-2 text-sm">
-                <li className="inline-flex items-center space-x-3 w-full">
-                  <HiUserCircle className="w-5 h-5" /> <span>AJ</span>
+            <>
+              {directMessages.map(({ id, name, Icon }, i) => (
+                <li key={i} className="inline-flex items-center space-x-3 w-full text-sm">
+                  <Link href={`/messages/${id}`}>
+                    <a className={classNames(
+                      'flex items-center space-x-3 px-6 py-2 w-full',
+                      'transition ease-in duration-150 text-white',
+                      router.asPath === `/messages/${id}`
+                      ? 'bg-purple-800' 
+                      : 'hover:bg-purple-800'
+                    )}>
+                      {Icon} <span>{name}</span>
+                    </a>
+                  </Link>
                 </li>
-                <li className="inline-flex items-center space-x-3 w-full">
-                  <HiUserCircle className="w-5 h-5" /> <span>Joshua</span>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </>
           )}
         </div>
       </nav>

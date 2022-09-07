@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { FiList } from 'react-icons/fi'
 import React, { useState } from 'react'
 import { FaListAlt } from 'react-icons/fa'
+import { HiUserCircle } from 'react-icons/hi'
 import { AiFillHome, AiFillCheckCircle } from 'react-icons/ai'
 
 import Sidebar from '~/components/Sidebar'
@@ -65,6 +66,24 @@ const Layout: React.FC<Props> = ({ children, metaHead }): JSX.Element => {
     },
   ]
 
+  const directMessages = [
+    {
+      id: 1,
+      name: 'Joshua Galit',
+      Icon: <HiUserCircle className="w-5 h-5" />
+    },
+    {
+      id: 2,
+      name: 'AJ',
+      Icon: <HiUserCircle className="w-5 h-5" />
+    },
+    {
+      id: 3,
+      name: 'Karlo Lee',
+      Icon: <HiUserCircle className="w-5 h-5" />
+    }
+  ]
+
   const toggleTeam = () => setIsOpenTeam(!isOpenTeam)
   const toggleDM = () => setIsOpenDM(!isOpenDM)
 
@@ -79,6 +98,7 @@ const Layout: React.FC<Props> = ({ children, metaHead }): JSX.Element => {
           links={links}
           isOpenDM={isOpenDM}
           teams={teams}
+          directMessages={directMessages}
           isOpenTeam={isOpenTeam}
           actions={{ toggleTeam, toggleDM }}
         />
