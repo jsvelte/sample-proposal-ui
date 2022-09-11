@@ -1,5 +1,5 @@
-import React from 'react'
 import Link from 'next/link'
+import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { BsCircle } from 'react-icons/bs'
 import { BiInfoCircle } from 'react-icons/bi'
@@ -8,7 +8,7 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 
 import { classNames } from '~/helpers/classNames'
 
-const Header: React.FC = (): JSX.Element => {
+const Header: FC = (): JSX.Element => {
   const router = useRouter()
 
   const { id } = router.query
@@ -37,21 +37,21 @@ const Header: React.FC = (): JSX.Element => {
   ]
 
   return (
-    <header className="sticky top-0 pt-1 z-10 bg-white border-b border-gay-300">
+    <header className="bg-white z-10 border-b border-gray-border">
       <div className="flex items-center">
-        <div className="py-2 px-4">
-          <RiComputerLine className="w-9 h-9" />
+        <div className="px-4">
+          <RiComputerLine className="w-8 h-8" />
         </div>
         <div>
           <div className="flex items-center space-x-2">
-            <h1 className="text-xl font-semibold">[Joshua] Elearning Project</h1>
-            <button className="p-0.5 hover:bg-gray-200 rounded-lg focus:bg-gray-200">
+            <h1 className="text-base font-semibold">[Joshua] Elearning Project</h1>
+            <button className="p-0.5 rounded-lg focus:bg-gray-200">
               <MdOutlineKeyboardArrowDown className="w-5 h-5" />
             </button>
-            <button className="p-0.5 hover:bg-gray-200 rounded-lg focus:bg-gray-200">
+            <button className="p-0.5 rounded-lg focus:bg-gray-200">
               <BiInfoCircle className="w-5 h-5" />
             </button>
-            <button className="group py0.5 px-1 hover:bg-gray-200 rounded-lg flex items-center">
+            <button className="group py-0.5 px-1 rounded-lg flex items-center">
               <BsCircle className="w-2 h-2" />
               <span className="ml-1 text-sm">Set Status</span>
               <MdOutlineKeyboardArrowDown className="w-5 h-5 group-hover:block hidden" />
@@ -62,9 +62,9 @@ const Header: React.FC = (): JSX.Element => {
               <li key={i}>
                 <Link href={href}>
                   <a className={classNames(
-                    'border-b-2 font-medium',
+                    'border-b-4 font-normal text-sm',
                     router.asPath.includes(`/team/${id}/${slug}`)
-                    ? 'border-purple-500' : 'border-transparent'
+                    ? 'border-primary' : 'border-transparent'
                   )}>{name}</a>
                 </Link>
               </li>

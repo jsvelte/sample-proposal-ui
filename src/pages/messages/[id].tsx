@@ -10,8 +10,8 @@ const DirectMessages: NextPage = (): JSX.Element => {
   const { id } = router.query
 
   return (
-    <Layout metaHead="Home">
-      <div className="flex flex-col space-y-4 items-center justify-center min-h-screen">
+    <Layout metaHead="Messages">
+      <div className="flex flex-col space-y-4 items-center justify-center">
         <p className="text-xl font-medium">This is direct messages {id}</p>
       </div>
     </Layout>

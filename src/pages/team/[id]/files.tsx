@@ -25,9 +25,9 @@ const Files: React.FC = (): JSX.Element => {
   return (
     <Layout metaHead={`${id}`}>
       <Header />
-      <main className="flex-1 min-h-[2000px] p-8">
+      <div className="flex-1 min-h-[2000px] p-8">
         This is the files {id}
-      </main>
+      </div>
     </Layout>
   )
 }

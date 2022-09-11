@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .scrollbar-medium::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 100%;
+  }
+}

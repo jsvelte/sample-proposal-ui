@@ -1,11 +1,11 @@
+import React from 'react'
 import Head from 'next/head'
-import { FiList } from 'react-icons/fi'
-import React, { useState } from 'react'
-import { FaListAlt } from 'react-icons/fa'
-import { HiUserCircle } from 'react-icons/hi'
-import { AiFillHome, AiFillCheckCircle } from 'react-icons/ai'
+import createPersistedState from 'use-persisted-state'
 
-import Sidebar from '~/components/Sidebar'
+import { teams } from '~/mock/team'
+import { links } from '~/mock/sidebarLinks'
+import Header from '~/components/Layout/Header'
+import Sidebar from '~/components/Layout/Sidebar'
 
 type Props = {
   children: React.ReactNode
@@ -13,97 +13,29 @@ type Props = {
 }
 
 const Layout: React.FC<Props> = ({ children, metaHead }): JSX.Element => {
-  const [isOpenTeam, setIsOpenTeam] = useState<boolean>(true)
-  const [isOpenDM, setIsOpenDM] = useState<boolean>(true)
+  const useToggleState = createPersistedState('toggle-sidebar')
+  const [isOpenSidebar, setIsOpenSidebar] = useToggleState(true)
 
-  const links = [
-    {
-      name: 'Home',
-      href: '/',
-      Icon: <AiFillHome className="w-5 h-5" />
-    },
-    {
-      name: 'My Tasks',
-      href: '/my-tasks',
-      Icon: <AiFillCheckCircle className="w-5- h-5" />
-    },
-    {
-      name: 'Placeholder1',
-      href: '#',
-      Icon: <FiList className="w-5 h-5" />
-    },
-    {
-      name: 'Placeholder2',
-      href: '#',
-      Icon: <FiList className="w-5 h-5" />
-    },
-    {
-      name: 'Placeholder3',
-      href: '#',
-      Icon: <FiList className="w-5 h-5" />
-    },
-    {
-      name: 'Placeholder4',
-      href: '#',
-      Icon: <FiList className="w-5 h-5" />
-    }
-  ]
-  const teams = [
-    {
-      id: 1,
-      name: 'Team Metajob',
-      Icon: <FaListAlt className="w-4 h-4" />
-    },
-    {
-      id: 2,
-      name: 'Team Lareact',
-      Icon: <FaListAlt className="w-4 h-4" />
-    },
-    {
-      id: 3,
-      name: 'Edge Team',
-      Icon: <FaListAlt className="w-4 h-4" />
-    },
-  ]
-
-  const directMessages = [
-    {
-      id: 1,
-      name: 'Joshua Galit',
-      Icon: <HiUserCircle className="w-5 h-5" />
-    },
-    {
-      id: 2,
-      name: 'AJ',
-      Icon: <HiUserCircle className="w-5 h-5" />
-    },
-    {
-      id: 3,
-      name: 'Karlo Lee',
-      Icon: <HiUserCircle className="w-5 h-5" />
-    }
-  ]
-
-  const toggleTeam = () => setIsOpenTeam(!isOpenTeam)
-  const toggleDM = () => setIsOpenDM(!isOpenDM)
-
+  const handleToggle = (): void => setIsOpenSidebar(!isOpenSidebar)
 
   return (
     <>
       <Head>
         <title>{`Slacka | ${metaHead}`}</title>
       </Head>
-      <div className="antialiased flex bg-white w-full min-h-screen h-screen overflow-hidden">
-        <Sidebar 
-          links={links}
-          isOpenDM={isOpenDM}
-          teams={teams}
-          directMessages={directMessages}
-          isOpenTeam={isOpenTeam}
-          actions={{ toggleTeam, toggleDM }}
+      <div className="flex flex-col h-screen min-h-screen overflow-hidden">
+        <Header 
+          handleToggle={handleToggle}
         />
-        <div className="flex-1 overflow-y-auto">
-          {children}
+        <div className="flex bg-white text-black h-full min-h-[94.5vh] overflow-hidden">
+          <Sidebar 
+            links={links}
+            teams={teams}
+            isOpenSidebar={isOpenSidebar}
+          />
+          <main className="flex-1">
+            {children}
+          </main>
         </div>
       </div>
     </>

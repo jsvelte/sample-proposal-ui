@@ -5,7 +5,7 @@ import Layout from '~/layouts/Layout'
 
 const MyTasks: NextPage = (): JSX.Element => {
   return (
-    <Layout metaHead="Home">
+    <Layout metaHead="My Task">
       <div className="flex flex-col space-y-4 items-center justify-center min-h-screen">
         <p className="text-xl font-medium">tasks</p>
       </div>

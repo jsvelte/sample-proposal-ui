@@ -9,19 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.1",
     "next": "12.2.5",
     "react": "18.2.0",
+    "react-avatar": "^5.0.3",
     "react-dom": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-feather": "^2.0.10",
+    "react-icons": "^4.4.0",
+    "react-screentype-hook": "^1.0.18",
+    "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {
     "@types/node": "18.7.15",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
+    "@types/use-persisted-state": "^0.3.1",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
     "postcss": "^8.4.16",
+    "tailwind-scrollbar": "^2.0.1",
     "tailwindcss": "^3.1.8",
     "typescript": "4.8.2"
   }
