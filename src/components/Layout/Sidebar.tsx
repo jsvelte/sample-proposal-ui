@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
-import Avatar from 'react-avatar'
 import { useRouter } from 'next/router'
-import { Airplay, Hash } from 'react-feather'
+import { Airplay, Trello } from 'react-feather'
 import { AiOutlineCaretDown } from 'react-icons/ai'
 import createPersistedState from 'use-persisted-state'
 
@@ -39,7 +38,7 @@ const Sidebar: FC<Props> = ({ links, teams, isOpenSidebar }): JSX.Element => {
         <nav className={classNames(
           'border-t border-purple-border overflow-y-hidden hover:overflow-y-auto',
           'scrollbar-thumb-[#967b96] scrollbar-thin scrollbar-track-rounded-full',
-          ''
+          'min-h-[82.5vh]'
         )}>
           <ul className="flex flex-col">
             {links.map(({ name, href, Icon }: ILink, i: number) => (
@@ -78,30 +77,41 @@ const Sidebar: FC<Props> = ({ links, teams, isOpenSidebar }): JSX.Element => {
               
               </div>
               {isOpen && (
-                <div className=" mb-6">
-                  <ul>
-                    {teams.map(({ id, name }, i) => (
-                      <li key={i} className="inline-flex items-center space-x-3 w-full text-sm">
-                        <Link href={`/team/${id}/overview`}>
-                          <a className={classNames(
-                            'flex items-center space-x-3 px-5 py-1.5 w-full',
-                            'transition ease-in duration-150',
-                            router.asPath.includes(`/team/${id}`)
-                            ? 'bg-primary text-[#f3f7fa]' 
-                            : 'hover:bg-purple-hover'
-                          )}>
-                            <Hash className="w-4 h-4" />
-                            <span>{name}</span>
-                          </a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul>
+                  {teams.map(({ id, name, notif }, i) => (
+                    <li key={i} className="inline-flex items-center space-x-3 w-full text-sm">
+                      <Link href={`/team/${id}/overview`}>
+                        <a className={classNames(
+                          'flex items-center justify-between px-5 py-1.5 w-full',
+                          'transition ease-in duration-150',
+                          router.asPath.includes(`/team/${id}`)
+                          ? 'bg-primary text-[#f3f7fa]' 
+                          : 'hover:bg-purple-hover'
+                        )}>
+                          <div className="flex items-center space-x-3">
+                            <Trello 
+                              className="w-4 h-4 flex-shrink-0" 
+                            />
+                            <span className={classNames(
+                              'line-clamp-1',
+                              notif ? 'font-bold text-white' : ''
+                            )}>{name}</span>
+                          </div>
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               )}
             </>
           </div>
         </nav>
+        <div className="border-t border-purple-border flex items-center w-full justify-between px-5 py-2.5">
+          <div className="flex items-center space-x-3 text-white">
+            <Airplay className="w-6 h-6" />
+            <p className="font-semibold text-xl">Slackana</p>
+          </div>
+        </div>
       </div>
     </aside>
   )

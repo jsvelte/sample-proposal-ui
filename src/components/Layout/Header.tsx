@@ -2,8 +2,8 @@ import { IoIosMenu } from 'react-icons/io'
 import React, { FC, Fragment } from 'react'
 import { BiSliderAlt } from 'react-icons/bi'
 import { Bell, Search } from 'react-feather'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDown, Settings, LogOut } from 'react-feather'
+import { Settings, LogOut, User } from 'react-feather'
+import { Menu, Transition, Popover } from '@headlessui/react'
 
 import { classNames } from '~/helpers/classNames'
 
@@ -62,10 +62,10 @@ const UserDropDown = (): JSX.Element => {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img 
           src="https://ca.slack-edge.com/E028JVBUY4F-U03N1UNTGAY-5ef1b06f109b-512" 
-          alt="" 
           className="w-6 h-6 rounded"
+          alt="" 
         />
-        <div className="absolute w-2 h-2 rounded-full bg-[#2bac76] right-0 top-5 flex-shrink-0"></div>
+        <span className="absolute w-2 h-2 rounded-full bg-[#2bac76] right-0 top-5 flex-shrink-0"></span>
       </Menu.Button>
       <Transition
         as={Fragment}
@@ -77,16 +77,47 @@ const UserDropDown = (): JSX.Element => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className={classNames(
-          'absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100',
-          'rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+          'absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-200 overflow-hidden',
+          'rounded-b-md bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none'
         )}>
-          <div className="px-1 py-1 ">
+          <div className="flex items-center p-2 space-x-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="https://ca.slack-edge.com/E028JVBUY4F-U03N1UNTGAY-5ef1b06f109b-512" 
+              className="w-8 h-8 rounded"
+              alt="" 
+            />
+            <div className="flex flex-col">
+              <h1 className="text-sm text-gray-900 font-medium">Joshua Galit</h1>
+              <p className="text-xs text-gray-600 font-normal">Developer</p>
+            </div>
+          </div>
+          <div>
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={`${
-                    active ? 'bg-[#8a1e8c] text-white' : 'text-gray-600'
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm font-medium`}
+                  className={classNames(
+                    'group flex w-full items-center px-3 py-2 text-sm font-medium',
+                    'transition ease-in-out duration-150 overflow-hidden',
+                    active ? 'bg-primary text-white' : 'text-gray-600'
+                  )}
+                >
+                  <User
+                    className="mr-2 h-4 w-4"
+                    aria-hidden="true"
+                  />
+                  Profile
+                </button>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  className={classNames(
+                    'group flex w-full items-center px-3 py-2 text-sm font-medium',
+                    'transition ease-in-out duration-150 overflow-hidden',
+                    active ? 'bg-primary text-white' : 'text-gray-600'
+                  )}
                 >
                   <Settings
                     className="mr-2 h-4 w-4"
@@ -96,12 +127,16 @@ const UserDropDown = (): JSX.Element => {
                 </button>
               )}
             </Menu.Item>
+          </div>
+          <div>
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={`${
-                    active ? 'bg-[#8a1e8c] text-white' : 'text-gray-600'
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm font-medium`}
+                  className={classNames(
+                    'group flex w-full items-center px-3 py-2 text-sm font-medium',
+                    'transition ease-in-out duration-150 overflow-hidden',
+                    active ? 'bg-primary text-white' : 'text-gray-600'
+                  )}
                 >
                   <LogOut
                     className="mr-2 h-4 w-4"
@@ -119,10 +154,75 @@ const UserDropDown = (): JSX.Element => {
 }
 
 const UserNotification = (): JSX.Element => {
+  const solutions = [
+    {
+      name: 'Insights',
+      description: 'Measure actions your users take',
+      href: '##',
+      icon: User,
+    },
+    {
+      name: 'Automations',
+      description: 'Create your own targeted content',
+      href: '##',
+      icon: User,
+    },
+    {
+      name: 'Reports',
+      description: 'Keep track of your growth',
+      href: '##',
+      icon: User,
+    },
+  ]
+
   return (
-    <button className="hover:bg-[#644565] rounded-full p-1 cursor-pointer">
-      <Bell className="text-white w-5 h-5" />
-    </button>
+    <Popover className="relative">
+      {({ open }) => (
+        <>
+          <Popover.Button className={classNames(
+            'rounded-full p-1 cursor-pointer',
+            open ? 'bg-white' : 'text-white hover:bg-[#644565]'
+          )}>
+            <Bell className="w-5 h-5" />
+          </Popover.Button>
+          <Transition
+              as={Fragment}
+              enter="transition ease-out duration-200"
+              enterFrom="opacity-0 translate-y-1"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition ease-in duration-150"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-1"
+            >
+            <Popover.Panel className="absolute left-1/2 z-10 mt-2 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
+              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                  {solutions.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="-m-3 flex items-center rounded-lg transition duration-150 ease-in-out hover:bg-gray-100"
+                    >
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center text-primary sm:h-12 sm:w-12">
+                        <item.icon aria-hidden="true" />
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-900">
+                          {item.name}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {item.description}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </Popover.Panel>
+          </Transition>
+        </>
+      )}
+    </Popover>
   )
 }
 
