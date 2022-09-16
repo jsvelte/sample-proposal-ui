@@ -23,19 +23,11 @@ const Layout: React.FC<Props> = ({ children, metaHead }): JSX.Element => {
       <Head>
         <title>{`Slacka | ${metaHead}`}</title>
       </Head>
-      <div className="flex flex-col h-screen min-h-screen overflow-hidden">
-        <Header 
-          handleToggle={handleToggle}
-        />
-        <div className="flex bg-white text-black h-full min-h-[94.5vh] overflow-hidden">
-          <Sidebar 
-            links={links}
-            teams={teams}
-            isOpenSidebar={isOpenSidebar}
-          />
-          <main className="flex-1">
-            {children}
-          </main>
+      <div className="flex h-screen min-h-screen flex-col overflow-hidden">
+        <Header handleToggle={handleToggle} />
+        <div className="flex h-full min-h-[94.5vh] overflow-hidden bg-white text-black">
+          <Sidebar links={links} teams={teams} isOpenSidebar={isOpenSidebar} />
+          <main className="flex-1">{children}</main>
         </div>
       </div>
     </>

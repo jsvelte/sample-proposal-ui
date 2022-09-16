@@ -13,21 +13,19 @@ const Chat: React.FC = (): JSX.Element => {
     {
       id: 1,
       name: 'Overview',
-      href: `/team/${id}/overview`,
+      href: `/team/${id}/overview`
     },
     {
       id: 1,
       name: 'List',
-      href: `/team/${id}/list`,
+      href: `/team/${id}/list`
     }
   ]
 
   return (
     <Layout metaHead={`${id}`}>
       <Header />
-      <div className="flex-1 min-h-[2000px] p-8">
-        This is the chat {id}
-      </div>
+      <div className="min-h-[2000px] flex-1 p-8">This is the chat {id}</div>
     </Layout>
   )
 }
