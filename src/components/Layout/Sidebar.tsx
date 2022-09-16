@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
-import { Airplay, Trello } from 'react-feather'
+import { Hash, Airplay } from 'react-feather'
 import { AiOutlineCaretDown } from 'react-icons/ai'
 import createPersistedState from 'use-persisted-state'
 
@@ -16,6 +16,7 @@ type Props = {
 
 const Sidebar: FC<Props> = ({ links, teams, isOpenSidebar }): JSX.Element => {
   const router = useRouter()
+
   const useToggleState = createPersistedState('toggle')
   const [isOpen, setIsOpen] = useToggleState(true)
 
@@ -26,7 +27,7 @@ const Sidebar: FC<Props> = ({ links, teams, isOpenSidebar }): JSX.Element => {
       className={classNames(
         'w-full border-r border-purple-border bg-light-purple',
         'flex flex-col justify-between text-[#bcaebc]',
-        'transform transition-all duration-300 ease-in-out',
+        'flex-shrink-0 transform transition-all duration-300 ease-in-out',
         isOpenSidebar ? 'max-w-[280px] translate-x-0' : 'max-w-0 -translate-x-full'
       )}
     >
@@ -90,7 +91,7 @@ const Sidebar: FC<Props> = ({ links, teams, isOpenSidebar }): JSX.Element => {
                           )}
                         >
                           <div className="flex items-center space-x-3">
-                            <Trello className="h-4 w-4 flex-shrink-0" />
+                            <Hash className="h-4 w-4 flex-shrink-0" />
                             <span
                               className={classNames(
                                 'line-clamp-1',

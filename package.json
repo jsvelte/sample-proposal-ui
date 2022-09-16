@@ -16,7 +16,6 @@
     "react-dom": "18.2.0",
     "react-feather": "^2.0.10",
     "react-icons": "^4.4.0",
-    "react-screentype-hook": "^1.0.18",
     "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {

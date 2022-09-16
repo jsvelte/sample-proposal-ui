@@ -15,56 +15,55 @@ type Props = {
 
 const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
   return (
-    <header className="flex w-full items-center border-b border-purple-border bg-dark-purple">
-      <div className="w-[280px] flex-shrink-0 border-r border-purple-border">
-        <div className="flex items-center">
-          <button
-            type="button"
-            onClick={handleToggle}
-            className="cursor-pointer px-3 py-3 hover:bg-[#533154]"
-          >
-            <IoIosMenu className="h-5 w-5 text-[#d4ced4]" />
-          </button>
+    <header className="flex w-full items-center justify-between border-b border-purple-border bg-dark-purple">
+      <div className="flex items-center space-x-2">
+        <button
+          type="button"
+          onClick={handleToggle}
+          className="cursor-pointer px-3 py-3 hover:bg-[#533154]"
+        >
+          <IoIosMenu className="h-5 w-5 text-[#d4ced4]" />
+        </button>
+        <div className="block md:hidden">
+          <h1 className="font-bold text-gray-200">Slacana</h1>
         </div>
       </div>
-      <div className="flex flex-1 items-center justify-between px-4">
-        <div className="hidden md:block">
-          <div
+      <div className="hidden md:block">
+        <div
+          className={classNames(
+            'relative overflow-hidden rounded-md bg-[#5d3d5e]',
+            'flex items-center transition-all duration-150 ease-in-out'
+          )}
+        >
+          <input
+            type="text"
             className={classNames(
-              'relative overflow-hidden rounded-md bg-[#5d3d5e]',
-              'flex items-center transition-all duration-150 ease-in-out'
+              'bg-[#5d3d5e] p-1 pl-2 text-sm text-white outline-none',
+              'rounded-md pr-14 placeholder-gray-300',
+              'transition duration-150 ease-in-out hover:bg-[#644565]',
+              'md:min-w-[400] lg:min-w-[500px]'
+            )}
+            placeholder="Search Slackana Member"
+          />
+          <div className="absolute right-2 flex space-x-2">
+            <BiSliderAlt className="h-4 w-4 text-white" />
+            <Search className="h-4 w-4 text-white" />
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-shrink-0 items-center justify-end space-x-2 px-4">
+        <div className="md:hidden">
+          <button
+            className={classNames(
+              'cursor-pointer rounded-full p-1 hover:bg-[#644565]',
+              'text-white focus:outline-none'
             )}
           >
-            <input
-              type="text"
-              className={classNames(
-                'bg-[#5d3d5e] p-1 pl-2 text-sm text-white outline-none',
-                'rounded-md pr-14 placeholder-gray-300',
-                'transition duration-150 ease-in-out hover:bg-[#644565]',
-                'md:min-w-[500] lg:min-w-[700px]'
-              )}
-              placeholder="Search Slackana Member"
-            />
-            <div className="absolute right-2 flex space-x-2">
-              <BiSliderAlt className="h-4 w-4 text-white" />
-              <Search className="h-4 w-4 text-white" />
-            </div>
-          </div>
+            <Search className="h-5 w-5" />
+          </button>
         </div>
-        <div className="flex flex-shrink-0 items-center justify-end space-x-2">
-          <div className="md:hidden">
-            <button
-              className={classNames(
-                'cursor-pointer rounded-full p-1 hover:bg-[#644565]',
-                'text-white focus:outline-none'
-              )}
-            >
-              <Search className="h-5 w-5" />
-            </button>
-          </div>
-          <UserNotification />
-          <UserDropDown />
-        </div>
+        <UserNotification />
+        <UserDropDown />
       </div>
     </header>
   )
@@ -154,27 +153,6 @@ const UserDropDown = (): JSX.Element => {
 }
 
 const UserNotification = (): JSX.Element => {
-  const solutions = [
-    {
-      name: 'Insights',
-      description: 'Measure actions your users take',
-      href: '##',
-      icon: User
-    },
-    {
-      name: 'Automations',
-      description: 'Create your own targeted content',
-      href: '##',
-      icon: User
-    },
-    {
-      name: 'Reports',
-      description: 'Keep track of your growth',
-      href: '##',
-      icon: User
-    }
-  ]
-
   return (
     <Popover className="relative">
       {({ open }) => (
