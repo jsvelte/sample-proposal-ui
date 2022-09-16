@@ -28,11 +28,6 @@ const Header: FC = (): JSX.Element => {
       name: 'Chat',
       href: `/team/${id}/chat`,
       slug: 'chat'
-    },
-    {
-      name: 'Files',
-      href: `/team/${id}/files`,
-      slug: 'files'
     }
   ]
 
