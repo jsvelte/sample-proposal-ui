@@ -1,3 +1,4 @@
+import Avatar from 'react-avatar'
 import { IoIosMenu } from 'react-icons/io'
 import React, { FC, Fragment } from 'react'
 import { BiSliderAlt } from 'react-icons/bi'
@@ -25,7 +26,7 @@ const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
           </button>
         </div>
       </div>
-      <div className="flex-1 px-2 flex items-center justify-between">
+      <div className="flex-1 px-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className={classNames(
             'relative bg-[#5d3d5e] overflow-hidden rounded-md',
@@ -46,7 +47,7 @@ const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
             </div>
           </div>
         </div>
-        <div className="flex items-center space-x-2 px-2">
+        <div className="flex items-center space-x-2 flex-shrink-0">
           <UserNotification />
           <UserDropDown />
         </div>
@@ -58,12 +59,11 @@ const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
 const UserDropDown = (): JSX.Element => {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img 
-          src="https://ca.slack-edge.com/E028JVBUY4F-U03N1UNTGAY-5ef1b06f109b-512" 
-          className="w-6 h-6 rounded"
-          alt="" 
+      <Menu.Button className="w-7 h-7 rounded-full bg-gray-200">
+        <Avatar 
+          name="Joshua" 
+          className="text-xs font-extrabold"
+          unstyled={true}
         />
         <span className="absolute w-2 h-2 rounded-full bg-[#2bac76] right-0 top-5 flex-shrink-0"></span>
       </Menu.Button>
@@ -77,16 +77,17 @@ const UserDropDown = (): JSX.Element => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className={classNames(
-          'absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-200 overflow-hidden',
+          'absolute right-0 mt-2.5 w-44 origin-top-right divide-y divide-gray-200 overflow-hidden',
           'rounded-b-md bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none'
         )}>
           <div className="flex items-center p-2 space-x-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src="https://ca.slack-edge.com/E028JVBUY4F-U03N1UNTGAY-5ef1b06f109b-512" 
-              className="w-8 h-8 rounded"
-              alt="" 
-            />
+            <div className="flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 border border-gray-300">
+              <Avatar 
+                name="Joshua" 
+                className="text-xs font-extrabold"
+                unstyled={true}
+              />
+            </div>
             <div className="flex flex-col">
               <h1 className="text-sm text-gray-900 font-medium">Joshua Galit</h1>
               <p className="text-xs text-gray-600 font-normal">Developer</p>
