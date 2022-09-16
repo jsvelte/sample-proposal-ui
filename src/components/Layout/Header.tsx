@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Avatar from 'react-avatar'
 import { IoIosMenu } from 'react-icons/io'
 import React, { FC, Fragment } from 'react'
@@ -27,7 +28,7 @@ const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
         </div>
       </div>
       <div className="flex-1 px-4 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+        <div className="hidden md:block">
           <div className={classNames(
             'relative bg-[#5d3d5e] overflow-hidden rounded-md',
             'transition-all ease-in-out duration-150 flex items-center'
@@ -36,8 +37,9 @@ const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
               type="text" 
               className={classNames(
                 'bg-[#5d3d5e] outline-none text-white p-1 text-sm pl-2',
-                'rounded-md placeholder-gray-300 min-w-[700px] pr-14',
-                'hover:bg-[#644565] transition ease-in-out duration-150'
+                'rounded-md placeholder-gray-300 pr-14',
+                'hover:bg-[#644565] transition ease-in-out duration-150',
+                'md:min-w-[500] lg:min-w-[700px]'
               )}
               placeholder="Search Slackana Member"
             />
@@ -47,7 +49,15 @@ const Header: FC<Props> = ({ handleToggle }): JSX.Element => {
             </div>
           </div>
         </div>
-        <div className="flex items-center space-x-2 flex-shrink-0">
+        <div className="flex items-center justify-end space-x-2 flex-shrink-0">
+          <div className="md:hidden">
+            <button className={classNames(
+              'rounded-full p-1 cursor-pointer hover:bg-[#644565]',
+              'text-white focus:outline-none'
+            )}>
+              <Search className="w-5 h-5" />
+            </button>
+          </div>
           <UserNotification />
           <UserDropDown />
         </div>
@@ -181,10 +191,10 @@ const UserNotification = (): JSX.Element => {
       {({ open }) => (
         <>
           <Popover.Button className={classNames(
-            'rounded-full p-1 cursor-pointer',
-            open ? 'bg-white' : 'text-white hover:bg-[#644565]'
+            'rounded-full p-1 cursor-pointer hover:bg-[#644565] text-white focus:outline-none',
+            open ? 'bg-[#644565]' : ''
           )}>
-            <Bell className="w-5 h-5" />
+            <Bell className="w-5 h-5" fill={open ? 'currentColor' : 'transparent'} />
           </Popover.Button>
           <Transition
               as={Fragment}
@@ -195,30 +205,109 @@ const UserNotification = (): JSX.Element => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-            <Popover.Panel className="absolute left-1/2 z-10 mt-2 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
-              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
-                  {solutions.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-m-3 flex items-center rounded-lg transition duration-150 ease-in-out hover:bg-gray-100"
-                    >
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center text-primary sm:h-12 sm:w-12">
-                        <item.icon aria-hidden="true" />
-                      </div>
-                      <div className="ml-4">
-                        <p className="text-sm font-medium text-gray-900">
-                          {item.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {item.description}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
+            <Popover.Panel 
+              className={classNames(
+                'absolute right-0 mt-2 w-64 origin-top-right divide-y divide-gray-200 overflow-hidden',
+                'rounded-b-md bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none'
+              )}
+            >
+              <div className="px-3 py-2">
+                <h1 className="text-sm font-semibold">Notifications</h1>
               </div>
+              <div className={classNames(
+                'py-2 overflow-y-auto max-h-[25vh] overflow-x-hidden overflow-y-hidden',
+                'scrollbar-thumb-[#967b96] scrollbar-thin scrollbar-track-rounded-full hover:overflow-y-auto'
+              )}>
+                <a href="#" className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img 
+                      className="h-7 w-7 rounded-full object-cover mx-1" 
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" 
+                      alt="avatar" 
+                    />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Sara Salah</span> replied on the <span className="font-bold text-blue-500">Upload Image</span> artical . 2m
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img 
+                      className="h-7 w-7 rounded-full object-cover mx-1" 
+                      src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" 
+                      alt="avatar" 
+                    />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Slick Net</span> start following you . 45m
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img 
+                      className="h-7 w-7 rounded-full object-cover mx-1" 
+                      src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" 
+                      alt="avatar" 
+                    />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Jane Doe</span> Like Your reply on <span className="font-bold text-blue-500">Test with TDD</span> artical . 1h
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img className="h-7 w-7 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80" alt="avatar" />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Abigail Bennett</span> start following you . 3h
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img 
+                      className="h-7 w-7 rounded-full object-cover mx-1" 
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" 
+                      alt="avatar" 
+                    />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Sara Salah</span> replied on the <span className="font-bold text-blue-500">Upload Image</span> artical . 2m
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img 
+                      className="h-7 w-7 rounded-full object-cover mx-1" 
+                      src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" 
+                      alt="avatar" 
+                    />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Slick Net</span> start following you . 45m
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img 
+                      className="h-7 w-7 rounded-full object-cover mx-1" 
+                      src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" 
+                      alt="avatar" 
+                    />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Jane Doe</span> Like Your reply on <span className="font-bold text-blue-500">Test with TDD</span> artical . 1h
+                  </p>
+                </a>
+                <a href="#" className="flex items-center px-4 py-3 hover:bg-gray-100 -mx-2">
+                  <div className="flex-shrink-0">
+                    <img className="h-7 w-7 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80" alt="avatar" />
+                  </div>
+                  <p className="text-gray-600 text-xs mx-2">
+                    <span className="font-bold">Abigail Bennett</span> start following you . 3h
+                  </p>
+                </a>
+              </div>
+              <a href="#" className="block bg-[#7f1f82] text-white text-center font-bold py-2 text-sm">See all notifications</a>
             </Popover.Panel>
           </Transition>
         </>
